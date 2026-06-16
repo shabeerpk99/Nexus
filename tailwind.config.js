@@ -2,6 +2,10 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    container: {
+      center: true,
+      padding: '1rem',
+    },
     extend: {
       colors: {
         primary: {
@@ -59,8 +63,24 @@ export default {
           700: '#B91C1C',
         },
       },
+      boxShadow: {
+        soft: '0 10px 30px rgba(15, 23, 42, 0.08)',
+        card: '0 1px 2px rgba(15, 23, 42, 0.05)',
+      },
+      borderRadius: {
+        xl: '1rem',
+        '2xl': '1.5rem',
+      },
       fontFamily: {
-        sans: ['Inter var', 'sans-serif'],
+        sans: ['Inter var', 'Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

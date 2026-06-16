@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    font-family: 'Inter var', 'Inter', system-ui, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 min-h-screen;
+    margin: 0;
+    background-color: #f8fafc;
+  }
+
+  body, input, button, textarea, select {
+    font: inherit;
+  }
+
+  a {
+    @apply text-primary-600 hover:text-primary-700;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .text-brand {
+    color: theme('colors.primary.700');
+  }
+  .bg-brand-soft {
+    background-color: theme('colors.primary.50');
+  }
+}
