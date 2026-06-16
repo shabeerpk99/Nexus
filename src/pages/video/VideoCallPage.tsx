@@ -133,11 +133,11 @@ export const VideoCallPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div className="space-y-4 sm:space-y-6 animate-fade-in">
+      <div className="flex flex-col gap-2 sm:gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Video Call Room</h1>
-          <p className="text-gray-600 mt-2">Start a secure mock video meeting using the browser media stack.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Video Call Room</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Start a secure mock video meeting using the browser media stack.</p>
         </div>
 
         <div className="flex flex-wrap gap-3">
@@ -148,7 +148,7 @@ export const VideoCallPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1.75fr_1fr] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.75fr_1fr] gap-4 md:gap-6">
         <Card>
           <CardHeader>
             <h2 className="text-xl font-medium text-gray-900">Live Preview</h2>
@@ -161,7 +161,7 @@ export const VideoCallPage: React.FC = () => {
               </div>
             )}
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-3xl border border-gray-200 bg-black overflow-hidden aspect-video">
                 <video
                   ref={localVideoRef}
@@ -186,7 +186,7 @@ export const VideoCallPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
               <Button
                 variant={isInCall ? 'error' : 'success'}
                 onClick={isInCall ? stopCall : startCall}

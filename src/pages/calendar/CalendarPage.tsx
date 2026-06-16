@@ -78,36 +78,40 @@ export const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Meeting Scheduler</h1>
-        <p className="text-gray-600 mt-1">Manage your availability and schedule meetings</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Meeting Scheduler</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Manage your availability and schedule meetings</p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-1">
           <TabsTrigger value="calendar">
-            <CalendarIcon size={18} className="mr-2" />
-            Calendar
+            <CalendarIcon size={16} className="mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Calendar</span>
+            <span className="sm:hidden text-xs">Cal</span>
           </TabsTrigger>
           <TabsTrigger value="availability">
-            <Clock size={18} className="mr-2" />
-            Availability
+            <Clock size={16} className="mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Availability</span>
+            <span className="sm:hidden text-xs">Avail</span>
           </TabsTrigger>
           <TabsTrigger value="requests">
-            <Send size={18} className="mr-2" />
-            Requests
+            <Send size={16} className="mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Requests</span>
+            <span className="sm:hidden text-xs">Req</span>
             {(pendingReceivedCount + pendingSentCount) > 0 && (
-              <Badge variant="error" size="sm" className="ml-2">
+              <Badge variant="error" size="sm" className="ml-1 sm:ml-2">
                 {pendingReceivedCount + pendingSentCount}
               </Badge>
             )}
           </TabsTrigger>
           <TabsTrigger value="meetings">
-            <CalendarIcon size={18} className="mr-2" />
-            Meetings
+            <CalendarIcon size={16} className="mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Meetings</span>
+            <span className="sm:hidden text-xs">Meet</span>
             {confirmedMeetings.length > 0 && (
-              <Badge variant="primary" size="sm" className="ml-2">
+              <Badge variant="primary" size="sm" className="ml-1 sm:ml-2">
                 {confirmedMeetings.length}
               </Badge>
             )}
@@ -148,7 +152,7 @@ export const CalendarPage: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div>
                     <h4 className="text-sm font-medium text-gray-700 mb-2">Select Recipient</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3">
                       {potentialRecipients.map(recipient => (
                         <Button
                           key={recipient.id}

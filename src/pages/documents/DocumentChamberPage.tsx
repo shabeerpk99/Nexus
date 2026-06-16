@@ -97,11 +97,11 @@ export const DocumentChamberPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div className="space-y-4 sm:space-y-6 animate-fade-in">
+      <div className="flex flex-col gap-2 sm:gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Document Chamber</h1>
-          <p className="text-gray-600 mt-2">Upload, preview and mock-sign contracts for your most important deals.</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Document Chamber</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Upload, preview and mock-sign contracts for your most important deals.</p>
         </div>
         <div className="flex flex-wrap gap-3">
           <Badge variant="secondary">Role: {user?.role === 'entrepreneur' ? 'Founder' : 'Investor'}</Badge>
@@ -109,10 +109,10 @@ export const DocumentChamberPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] gap-6">
-        <Card className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-[1fr_1.5fr] gap-4 md:gap-6">
+        <Card className="space-y-4 md:col-span-1">
           <CardHeader>
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">Upload Document</h2>
                 <p className="text-sm text-gray-500">Drag or browse to add a contract for preview and e-sign.</p>
@@ -136,7 +136,7 @@ export const DocumentChamberPage: React.FC = () => {
               </div>
             )}
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
               <Input
                 label="Document Name"
                 value={fileName}
@@ -152,7 +152,7 @@ export const DocumentChamberPage: React.FC = () => {
                 placeholder="PDF / DOCX"
               />
             </div>
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-3">
               {statusOptions.map((option) => (
                 <Button
                   key={option}
@@ -205,7 +205,7 @@ export const DocumentChamberPage: React.FC = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr] gap-4 md:gap-6">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between gap-3">
@@ -240,7 +240,7 @@ export const DocumentChamberPage: React.FC = () => {
           </CardBody>
         </Card>
 
-        <div className="space-y-6">
+        <div className="space-y-4 md:col-span-1 md:col-start-1 lg:col-span-1 lg:col-start-auto">
           <Card>
             <CardHeader>
               <h2 className="text-xl font-semibold text-gray-900">E-signature</h2>

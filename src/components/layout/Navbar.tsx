@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign } from 'lucide-react';
+import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, Share2, FileText } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
@@ -36,6 +36,11 @@ export const Navbar: React.FC = () => {
       path: dashboardRoute,
     },
     {
+      icon: <Calendar size={18} />,
+      text: 'Calendar',
+      path: user ? '/calendar' : '/login',
+    },
+    {
       icon: <MessageCircle size={18} />,
       text: 'Messages',
       path: user ? '/messages' : '/login',
@@ -44,6 +49,21 @@ export const Navbar: React.FC = () => {
       icon: <Bell size={18} />,
       text: 'Notifications',
       path: user ? '/notifications' : '/login',
+    },
+    {
+      icon: <Video size={18} />,
+      text: 'Video Call',
+      path: user ? '/video' : '/login',
+    },
+    {
+      icon: <Share2 size={18} />,
+      text: 'Document Chamber',
+      path: user ? '/documents/chamber' : '/login',
+    },
+    {
+      icon: user?.role === 'entrepreneur' ? <FileText size={18} /> : <FileText size={18} />,
+      text: user?.role === 'entrepreneur' ? 'Documents' : 'Deals',
+      path: user ? (user.role === 'entrepreneur' ? '/documents' : '/deals') : '/login',
     },
     {
       icon: <User size={18} />,
