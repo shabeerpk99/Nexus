@@ -6,14 +6,17 @@ import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { CollaborationRequestCard } from '../../components/collaboration/CollaborationRequestCard';
 import { InvestorCard } from '../../components/investor/InvestorCard';
+import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
 import { useAuth } from '../../context/AuthContext';
 import { CollaborationRequest } from '../../types';
 import { getRequestsForEntrepreneur } from '../../data/collaborationRequests';
+import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
 import { investors } from '../../data/users';
 
 export const EntrepreneurDashboard: React.FC = () => {
   const { user } = useAuth();
   const [collaborationRequests, setCollaborationRequests] = useState<CollaborationRequest[]>([]);
+  const [confirmedMeetings, setConfirmedMeetings] = useState<any[]>([]);
   const [recommendedInvestors, setRecommendedInvestors] = useState(investors.slice(0, 3));
   
   useEffect(() => {
@@ -21,6 +24,10 @@ export const EntrepreneurDashboard: React.FC = () => {
       // Load collaboration requests
       const requests = getRequestsForEntrepreneur(user.id);
       setCollaborationRequests(requests);
+      
+      // Load confirmed meetings
+      const meetings = getConfirmedMeetingsForUser(user.id);
+      setConfirmedMeetings(meetings);
     }
   }, [user]);
   
@@ -145,6 +152,13 @@ export const EntrepreneurDashboard: React.FC = () => {
               )}
             </CardBody>
           </Card>
+
+          {/* Confirmed Meetings Widget */}
+          <ConfirmedMeetingsWidget
+            meetings={confirmedMeetings}
+            currentUserId={user.id}
+            limit={3}
+          />
         </div>
         
         {/* Recommended investors */}

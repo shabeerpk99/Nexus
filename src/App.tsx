@@ -29,6 +29,7 @@ import { DealsPage } from './pages/deals/DealsPage';
 
 // Chat Pages
 import { ChatPage } from './pages/chat/ChatPage';
+import { CalendarPage } from './pages/calendar/CalendarPage';
 
 function App() {
   return (
@@ -88,6 +89,11 @@ function App() {
           <Route path="/chat" element={<DashboardLayout />}>
             <Route index element={<ChatPage />} />
             <Route path=":userId" element={<ChatPage />} />
+          </Route>
+          
+          {/* Calendar Routes */}
+          <Route path="/calendar" element={<DashboardLayout />}>
+            <Route index element={<CalendarPage />} />
           </Route>
           
           {/* Redirect root to login */}

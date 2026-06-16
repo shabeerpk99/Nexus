@@ -6,10 +6,12 @@ import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Badge } from '../../components/ui/Badge';
 import { EntrepreneurCard } from '../../components/entrepreneur/EntrepreneurCard';
+import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
 import { useAuth } from '../../context/AuthContext';
 import { Entrepreneur } from '../../types';
 import { entrepreneurs } from '../../data/users';
 import { getRequestsFromInvestor } from '../../data/collaborationRequests';
+import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
 
 export const InvestorDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -21,6 +23,9 @@ export const InvestorDashboard: React.FC = () => {
   // Get collaboration requests sent by this investor
   const sentRequests = getRequestsFromInvestor(user.id);
   const requestedEntrepreneurIds = sentRequests.map(req => req.entrepreneurId);
+  
+  // Get confirmed meetings
+  const confirmedMeetings = getConfirmedMeetingsForUser(user.id);
   
   // Filter entrepreneurs based on search and industry filters
   const filteredEntrepreneurs = entrepreneurs.filter(entrepreneur => {
@@ -146,6 +151,13 @@ export const InvestorDashboard: React.FC = () => {
           </CardBody>
         </Card>
       </div>
+      
+      {/* Confirmed Meetings Widget */}
+      <ConfirmedMeetingsWidget
+        meetings={confirmedMeetings}
+        currentUserId={user.id}
+        limit={3}
+      />
       
       {/* Entrepreneurs grid */}
       <div>
