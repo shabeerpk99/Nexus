@@ -7,10 +7,12 @@ import { Badge } from '../../components/ui/Badge';
 import { CollaborationRequestCard } from '../../components/collaboration/CollaborationRequestCard';
 import { InvestorCard } from '../../components/investor/InvestorCard';
 import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
+import { WalletOverviewCard } from '../../components/payment/WalletOverviewCard';
 import { useAuth } from '../../context/AuthContext';
 import { CollaborationRequest } from '../../types';
 import { getRequestsForEntrepreneur } from '../../data/collaborationRequests';
 import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
+import { findWalletByUserId } from '../../data/wallets';
 import { investors } from '../../data/users';
 
 export const EntrepreneurDashboard: React.FC = () => {
@@ -18,6 +20,7 @@ export const EntrepreneurDashboard: React.FC = () => {
   const [collaborationRequests, setCollaborationRequests] = useState<CollaborationRequest[]>([]);
   const [confirmedMeetings, setConfirmedMeetings] = useState<any[]>([]);
   const [recommendedInvestors, setRecommendedInvestors] = useState(investors.slice(0, 3));
+  const [walletBalance, setWalletBalance] = useState(0);
   
   useEffect(() => {
     if (user) {
@@ -28,6 +31,12 @@ export const EntrepreneurDashboard: React.FC = () => {
       // Load confirmed meetings
       const meetings = getConfirmedMeetingsForUser(user.id);
       setConfirmedMeetings(meetings);
+      
+      // Load wallet balance
+      const wallet = findWalletByUserId(user.id);
+      if (wallet) {
+        setWalletBalance(wallet.balance);
+      }
     }
   }, [user]);
   
@@ -120,6 +129,14 @@ export const EntrepreneurDashboard: React.FC = () => {
           </CardBody>
         </Card>
       </div>
+
+      {/* Wallet Overview */}
+      <WalletOverviewCard
+        balance={walletBalance}
+        currency="USD"
+        userName={user.name}
+        userRole={user.role}
+      />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Collaboration requests */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, PieChart, Filter, Search, PlusCircle } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -7,16 +7,29 @@ import { Input } from '../../components/ui/Input';
 import { Badge } from '../../components/ui/Badge';
 import { EntrepreneurCard } from '../../components/entrepreneur/EntrepreneurCard';
 import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
+import { WalletOverviewCard } from '../../components/payment/WalletOverviewCard';
 import { useAuth } from '../../context/AuthContext';
 import { Entrepreneur } from '../../types';
 import { entrepreneurs } from '../../data/users';
 import { getRequestsFromInvestor } from '../../data/collaborationRequests';
 import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
+import { findWalletByUserId } from '../../data/wallets';
 
 export const InvestorDashboard: React.FC = () => {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [walletBalance, setWalletBalance] = useState(0);
+  
+  useEffect(() => {
+    if (user) {
+      // Load wallet balance
+      const wallet = findWalletByUserId(user.id);
+      if (wallet) {
+        setWalletBalance(wallet.balance);
+      }
+    }
+  }, [user]);
   
   if (!user) return null;
   
@@ -151,6 +164,14 @@ export const InvestorDashboard: React.FC = () => {
           </CardBody>
         </Card>
       </div>
+
+      {/* Wallet Overview */}
+      <WalletOverviewCard
+        balance={walletBalance}
+        currency="USD"
+        userName={user.name}
+        userRole={user.role}
+      />
       
       {/* Confirmed Meetings Widget */}
       <ConfirmedMeetingsWidget

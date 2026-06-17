@@ -33,6 +33,9 @@ import { VideoCallPage } from './pages/video/VideoCallPage';
 import { ChatPage } from './pages/chat/ChatPage';
 import { CalendarPage } from './pages/calendar/CalendarPage';
 
+// Payment Pages
+import { PaymentPage } from './pages/payments/PaymentPage';
+
 function App() {
   return (
     <AuthProvider>
@@ -103,6 +106,11 @@ function App() {
           {/* Calendar Routes */}
           <Route path="/calendar" element={<DashboardLayout />}>
             <Route index element={<CalendarPage />} />
+          </Route>
+          
+          {/* Payment Routes */}
+          <Route path="/payments" element={<DashboardLayout />}>
+            <Route index element={<PaymentPage />} />
           </Route>
           
           {/* Redirect root to login */}

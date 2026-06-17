@@ -108,6 +108,63 @@ export interface ConfirmedMeeting {
   updatedAt: string;
 }
 
+export interface PaymentMethod {
+  id: string;
+  userId: string;
+  type: 'credit_card' | 'debit_card' | 'bank_transfer' | 'wallet';
+  provider: string;
+  last4: string;
+  expiryDate?: string;
+  isDefault: boolean;
+  createdAt: string;
+}
+
+export interface Wallet {
+  id: string;
+  userId: string;
+  balance: number;
+  currency: string;
+  paymentMethods: PaymentMethod[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TransactionType = 'deposit' | 'withdrawal' | 'transfer' | 'investment' | 'payout';
+export type TransactionStatus = 'pending' | 'completed' | 'failed' | 'cancelled';
+
+export interface Transaction {
+  id: string;
+  walletId: string;
+  userId: string;
+  type: TransactionType;
+  status: TransactionStatus;
+  amount: number;
+  currency: string;
+  description: string;
+  relatedUserId?: string; // For transfers
+  paymentMethodId?: string;
+  dealId?: string; // For investments
+  reference?: string;
+  createdAt: string;
+  completedAt?: string;
+}
+
+export interface Deal {
+  id: string;
+  entrepreneurId: string;
+  investorId?: string;
+  title: string;
+  description: string;
+  fundingAmount: number;
+  fundingTarget: number;
+  equity: number;
+  status: 'open' | 'funded' | 'rejected' | 'completed';
+  currency: string;
+  createdAt: string;
+  fundedAt?: string;
+  completedAt?: string;
+}
+
 export interface AuthContextType {
   user: User | null;
   login: (email: string, password: string, role: UserRole) => Promise<void>;
