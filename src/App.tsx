@@ -5,9 +5,14 @@ import { AuthProvider } from './context/AuthContext';
 // Layouts
 import { DashboardLayout } from './components/layout/DashboardLayout';
 
+// Security Components
+import { ProtectedRoute } from './components/security/ProtectedRoute';
+import { RoleBasedRoute } from './components/security/RoleBasedRoute';
+
 // Auth Pages
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
+import { TwoFactorAuthPage } from './pages/auth/TwoFactorAuthPage';
 
 // Dashboard Pages
 import { EntrepreneurDashboard } from './pages/dashboard/EntrepreneurDashboard';
@@ -44,72 +49,192 @@ function App() {
           {/* Authentication Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-2fa" element={<TwoFactorAuthPage />} />
           
           {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route path="entrepreneur" element={<EntrepreneurDashboard />} />
-            <Route path="investor" element={<InvestorDashboard />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route 
+              path="entrepreneur" 
+              element={
+                <RoleBasedRoute allowedRoles={['entrepreneur']} fallbackRole="entrepreneur">
+                  <EntrepreneurDashboard />
+                </RoleBasedRoute>
+              } 
+            />
+            <Route 
+              path="investor" 
+              element={
+                <RoleBasedRoute allowedRoles={['investor']} fallbackRole="investor">
+                  <InvestorDashboard />
+                </RoleBasedRoute>
+              } 
+            />
           </Route>
           
           {/* Profile Routes */}
-          <Route path="/profile" element={<DashboardLayout />}>
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="entrepreneur/:id" element={<EntrepreneurProfile />} />
             <Route path="investor/:id" element={<InvestorProfile />} />
           </Route>
           
-          {/* Feature Routes */}
-          <Route path="/investors" element={<DashboardLayout />}>
+          {/* Feature Routes - All Protected */}
+          <Route 
+            path="/investors" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<InvestorsPage />} />
           </Route>
           
-          <Route path="/entrepreneurs" element={<DashboardLayout />}>
+          <Route 
+            path="/entrepreneurs" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<EntrepreneursPage />} />
           </Route>
           
-          <Route path="/messages" element={<DashboardLayout />}>
+          <Route 
+            path="/messages" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<MessagesPage />} />
           </Route>
           
-          <Route path="/notifications" element={<DashboardLayout />}>
+          <Route 
+            path="/notifications" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<NotificationsPage />} />
           </Route>
           
-          <Route path="/documents" element={<DashboardLayout />}>
+          <Route 
+            path="/documents" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<DocumentsPage />} />
           </Route>
-          <Route path="/documents/chamber" element={<DashboardLayout />}>
+          <Route 
+            path="/documents/chamber" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<DocumentChamberPage />} />
           </Route>
           
-          <Route path="/video" element={<DashboardLayout />}>
+          <Route 
+            path="/video" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<VideoCallPage />} />
           </Route>
           
-          <Route path="/settings" element={<DashboardLayout />}>
+          <Route 
+            path="/settings" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<SettingsPage />} />
           </Route>
           
-          <Route path="/help" element={<DashboardLayout />}>
+          <Route 
+            path="/help" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<HelpPage />} />
           </Route>
           
-          <Route path="/deals" element={<DashboardLayout />}>
+          <Route 
+            path="/deals" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<DealsPage />} />
           </Route>
           
           {/* Chat Routes */}
-          <Route path="/chat" element={<DashboardLayout />}>
+          <Route 
+            path="/chat" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<ChatPage />} />
             <Route path=":userId" element={<ChatPage />} />
           </Route>
           
           {/* Calendar Routes */}
-          <Route path="/calendar" element={<DashboardLayout />}>
+          <Route 
+            path="/calendar" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<CalendarPage />} />
           </Route>
           
           {/* Payment Routes */}
-          <Route path="/payments" element={<DashboardLayout />}>
+          <Route 
+            path="/payments" 
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<PaymentPage />} />
           </Route>
           

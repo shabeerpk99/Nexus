@@ -4,6 +4,7 @@ import { User, Mail, Lock, CircleDollarSign, Building2, AlertCircle } from 'luci
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { PasswordStrengthMeter, validatePassword } from '../../components/security/PasswordStrengthMeter';
 import { UserRole } from '../../types';
 
 export const RegisterPage: React.FC = () => {
@@ -18,6 +19,8 @@ export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   
+  const passwordValidation = validatePassword(password);
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -28,12 +31,18 @@ export const RegisterPage: React.FC = () => {
       return;
     }
     
+    // Validate password strength
+    if (!passwordValidation.isValid) {
+      setError('Password does not meet the required strength criteria');
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
       await register(name, email, password, role);
-      // Redirect based on user role
-      navigate(role === 'entrepreneur' ? '/dashboard/entrepreneur' : '/dashboard/investor');
+      // Redirect to 2FA page or dashboard after successful registration
+      navigate('/verify-2fa');
     } catch (err) {
       setError((err as Error).message);
       setIsLoading(false);
@@ -131,6 +140,8 @@ export const RegisterPage: React.FC = () => {
               fullWidth
               startAdornment={<Lock size={18} />}
             />
+            
+            {password && <PasswordStrengthMeter password={password} />}
             
             <Input
               label="Confirm password"

@@ -165,6 +165,29 @@ export interface Deal {
   completedAt?: string;
 }
 
+// Security & Access Control Types
+export type PasswordStrength = 'weak' | 'medium' | 'strong';
+
+export interface PasswordValidation {
+  isValid: boolean;
+  strength: PasswordStrength;
+  checks: {
+    minLength: boolean; // At least 8 characters
+    hasUppercase: boolean;
+    hasLowercase: boolean;
+    hasNumber: boolean;
+    hasSpecialChar: boolean;
+  };
+}
+
+export interface TwoFactorSession {
+  userId: string;
+  sessionToken: string;
+  expiresAt: number;
+  otpSent: boolean;
+  attempts: number;
+}
+
 export interface AuthContextType {
   user: User | null;
   login: (email: string, password: string, role: UserRole) => Promise<void>;
@@ -175,4 +198,8 @@ export interface AuthContextType {
   updateProfile: (userId: string, updates: Partial<User>) => Promise<void>;
   isAuthenticated: boolean;
   isLoading: boolean;
+  twoFactorSession: TwoFactorSession | null;
+  initiateTwoFactor: (userId: string) => Promise<void>;
+  verifyTwoFactor: (otp: string) => Promise<void>;
+  resendOTP: () => Promise<void>;
 }
