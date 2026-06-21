@@ -34,6 +34,7 @@ export const Navbar: React.FC = () => {
       icon: user?.role === 'entrepreneur' ? <Building2 size={18} /> : <CircleDollarSign size={18} />,
       text: 'Dashboard',
       path: dashboardRoute,
+      tourId: 'dashboard-link',
     },
     {
       icon: <Calendar size={18} />,
@@ -44,6 +45,7 @@ export const Navbar: React.FC = () => {
       icon: <MessageCircle size={18} />,
       text: 'Messages',
       path: user ? '/messages' : '/login',
+      tourId: 'messages-link',
     },
     {
       icon: <Bell size={18} />,
@@ -64,6 +66,7 @@ export const Navbar: React.FC = () => {
       icon: user?.role === 'entrepreneur' ? <FileText size={18} /> : <FileText size={18} />,
       text: user?.role === 'entrepreneur' ? 'Documents' : 'Deals',
       path: user ? (user.role === 'entrepreneur' ? '/documents' : '/deals') : '/login',
+      tourId: 'documents-link',
     },
     {
       icon: <User size={18} />,
@@ -78,7 +81,7 @@ export const Navbar: React.FC = () => {
         <div className="flex justify-between h-16">
           {/* Logo and brand */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" data-tour="brand" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary-600 rounded-md flex items-center justify-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
                   <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -97,6 +100,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     key={index}
                     to={link.path}
+                    data-tour={link.tourId}
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                   >
                     <span className="mr-2">{link.icon}</span>
@@ -174,6 +178,7 @@ export const Navbar: React.FC = () => {
                     <Link
                       key={index}
                       to={link.path}
+                      data-tour={link.tourId}
                       className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
                       onClick={() => setIsMenuOpen(false)}
                     >

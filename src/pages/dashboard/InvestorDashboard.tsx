@@ -8,6 +8,7 @@ import { Badge } from '../../components/ui/Badge';
 import { EntrepreneurCard } from '../../components/entrepreneur/EntrepreneurCard';
 import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
 import { WalletOverviewCard } from '../../components/payment/WalletOverviewCard';
+import { DashboardSummary } from '../../components/layout/DashboardSummary';
 import { useAuth } from '../../context/AuthContext';
 import { Entrepreneur } from '../../types';
 import { entrepreneurs } from '../../data/users';
@@ -164,6 +165,8 @@ export const InvestorDashboard: React.FC = () => {
           </CardBody>
         </Card>
       </div>
+
+      <DashboardSummary role={user.role} userName={user.name} />
 
       {/* Wallet Overview */}
       <WalletOverviewCard

@@ -9,6 +9,7 @@ import { InvestorCard } from '../../components/investor/InvestorCard';
 import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeetingsWidget';
 import { WalletOverviewCard } from '../../components/payment/WalletOverviewCard';
 import { useAuth } from '../../context/AuthContext';
+import { DashboardSummary } from '../../components/layout/DashboardSummary';
 import { CollaborationRequest } from '../../types';
 import { getRequestsForEntrepreneur } from '../../data/collaborationRequests';
 import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
@@ -130,6 +131,8 @@ export const EntrepreneurDashboard: React.FC = () => {
         </Card>
       </div>
 
+      <DashboardSummary role={user.role} userName={user.name} />
+      
       {/* Wallet Overview */}
       <WalletOverviewCard
         balance={walletBalance}
