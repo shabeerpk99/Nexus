@@ -13,6 +13,17 @@ const TWO_FACTOR_SESSION_KEY = 'business_nexus_2fa_session';
 
 // Mock 2FA OTP (in real app, sent via email)
 const generateMockOTP = (): string => {
+  // For developer convenience in non-production builds, return a fixed OTP.
+  // This makes demo logins deterministic: use '123456' in dev.
+  try {
+    // Vite exposes import.meta.env.DEV in development
+     
+    const isDev = (import.meta as any)?.env?.DEV;
+    if (isDev) return '123456';
+  } catch {
+    // ignore and fallback to random
+  }
+
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
@@ -178,26 +189,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 500));
 
       // Generate mock OTP
-      const otp = generateMockOTP();
+      let otp = generateMockOTP();
+
+      // If this is a known demo account (or in dev), make OTP deterministic for testing
+      const demoEmails = ['sarah@techwave.io', 'michael@vcinnovate.com'];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const isDev = (import.meta as any)?.env?.DEV;
+      const targetUser = users.find(u => u.id === userId);
+      if (isDev || (targetUser && demoEmails.includes(targetUser.email))) {
+        otp = '123456';
+      }
+
       setPendingOTP(otp);
 
-      // Log OTP to console for testing (in real app, would be sent via email)
-      console.log(`🔐 Two-Factor Authentication Code: ${otp}`);
-
-      // Create 2FA session
+      // Create 2FA session (store otp in session for dev/demo flows)
       const sessionToken = Math.random().toString(36).substring(2, 15);
       const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-      const session: TwoFactorSession = {
+      const session: TwoFactorSession & { otp?: string } = {
         userId,
         sessionToken,
         expiresAt,
         otpSent: true,
         attempts: 0,
+        otp,
       };
 
       setTwoFactorSession(session);
       localStorage.setItem(TWO_FACTOR_SESSION_KEY, JSON.stringify(session));
+
+      // Log OTP in development for easier demo testing
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const isDev = (import.meta as any)?.env?.DEV;
+        if (isDev) {
+          // avoid leaking in production
+          // eslint-disable-next-line no-console
+          console.info(`Dev 2FA OTP for user ${userId}: ${otp}`);
+        }
+      } catch {
+        // ignore
+      }
     } catch (error) {
       toast.error('Failed to initiate 2FA');
       throw error;
@@ -215,12 +247,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Verify OTP (in real app, this would check against the backend)
-      console.log(`📝 Entered OTP: ${otp}, Expected OTP: ${pendingOTP}`);
-      if (otp !== pendingOTP) {
-        console.error(`❌ OTP Mismatch! Entered: "${otp}" | Expected: "${pendingOTP}"`);
+      const sessionOtp = (twoFactorSession as any)?.otp || pendingOTP;
+      if (otp !== sessionOtp) {
         throw new Error('Invalid verification code');
       }
-      console.log(`✅ OTP Match! Code verified successfully`);
 
       // Check session validity
       if (twoFactorSession.expiresAt < Date.now()) {
@@ -273,14 +303,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const newOtp = generateMockOTP();
       setPendingOTP(newOtp);
 
-      // Log new OTP to console
-      console.log(`🔐 New Two-Factor Authentication Code: ${newOtp}`);
+      // Update OTP for verification
 
       // Reset attempts
       const updatedSession = {
         ...twoFactorSession,
         attempts: 0,
         expiresAt: Date.now() + 10 * 60 * 1000, // Reset expiry
+        otp: newOtp,
       };
       setTwoFactorSession(updatedSession);
       localStorage.setItem(TWO_FACTOR_SESSION_KEY, JSON.stringify(updatedSession));

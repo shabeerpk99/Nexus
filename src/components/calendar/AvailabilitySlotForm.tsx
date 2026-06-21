@@ -80,7 +80,7 @@ export const AvailabilitySlotForm: React.FC<AvailabilitySlotFormProps> = ({
       } else {
         setError('Failed to create availability slot');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while creating the slot');
     } finally {
       setIsLoading(false);
@@ -140,7 +140,7 @@ export const AvailabilitySlotForm: React.FC<AvailabilitySlotFormProps> = ({
       } else {
         setError('Failed to update the slot');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while updating the slot');
     } finally {
       setIsLoading(false);

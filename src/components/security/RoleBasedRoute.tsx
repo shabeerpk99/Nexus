@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types';
 import { Card, CardBody } from '../ui/Card';
@@ -18,6 +18,7 @@ export const RoleBasedRoute: React.FC<RoleBasedRouteProps> = ({
   fallbackRole = 'entrepreneur',
 }) => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -47,23 +48,20 @@ export const RoleBasedRoute: React.FC<RoleBasedRouteProps> = ({
                 <Button
                   variant="primary"
                   fullWidth
-                  onClick={() => {
-                    // In a real app, this would switch user roles if allowed
-                    window.location.href = `/dashboard/${fallbackRole}`;
-                  }}
+                  onClick={() => navigate(`/dashboard/${fallbackRole}`)}
                 >
                   Go to {fallbackRole === 'entrepreneur' ? 'Entrepreneur' : 'Investor'} Dashboard
                 </Button>
               )}
 
               {user.role === 'entrepreneur' && !allowedRoles.includes('entrepreneur') && (
-                <Button variant="primary" fullWidth onClick={() => window.location.href = '/dashboard/entrepreneur'}>
+                <Button variant="primary" fullWidth onClick={() => navigate('/dashboard/entrepreneur')}>
                   Go to Entrepreneur Dashboard
                 </Button>
               )}
 
               {user.role === 'investor' && !allowedRoles.includes('investor') && (
-                <Button variant="primary" fullWidth onClick={() => window.location.href = '/dashboard/investor'}>
+                <Button variant="primary" fullWidth onClick={() => navigate('/dashboard/investor')}>
                   Go to Investor Dashboard
                 </Button>
               )}

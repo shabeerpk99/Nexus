@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Sparkles, ShieldCheck, Users } from 'lucide-react';
+import { Sparkles, ShieldCheck, Users } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Card, CardBody, CardHeader } from '../ui/Card';
 

@@ -68,7 +68,7 @@ export const VideoCallPage: React.FC = () => {
       callStartRef.current = Date.now();
       setCallDuration('00:00');
       startTimer();
-    } catch (err) {
+    } catch {
       setError('Unable to access camera or microphone. Please allow permissions and try again.');
     }
   };

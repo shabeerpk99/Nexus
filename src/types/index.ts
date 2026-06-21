@@ -186,6 +186,7 @@ export interface TwoFactorSession {
   expiresAt: number;
   otpSent: boolean;
   attempts: number;
+  otp?: string;
 }
 
 export interface AuthContextType {

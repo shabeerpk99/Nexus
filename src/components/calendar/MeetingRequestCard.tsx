@@ -61,7 +61,7 @@ export const MeetingRequestCard: React.FC<MeetingRequestCardProps> = ({
       } else {
         setError('Failed to accept meeting request');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while accepting the request');
     } finally {
       setIsLoading(false);
@@ -79,7 +79,7 @@ export const MeetingRequestCard: React.FC<MeetingRequestCardProps> = ({
       } else {
         setError('Failed to decline meeting request');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while declining the request');
     } finally {
       setIsLoading(false);
@@ -97,7 +97,7 @@ export const MeetingRequestCard: React.FC<MeetingRequestCardProps> = ({
       } else {
         setError('Failed to cancel meeting request');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while cancelling the request');
     } finally {
       setIsLoading(false);

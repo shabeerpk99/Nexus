@@ -12,6 +12,8 @@ import { RoleBasedRoute } from './components/security/RoleBasedRoute';
 // Auth Pages
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
+import { ForgotPasswordPage } from './pages/auth/ForgotPasswordPage';
+import { ResetPasswordPage } from './pages/auth/ResetPasswordPage';
 import { TwoFactorAuthPage } from './pages/auth/TwoFactorAuthPage';
 
 // Dashboard Pages
@@ -49,6 +51,8 @@ function App() {
           {/* Authentication Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/verify-2fa" element={<TwoFactorAuthPage />} />
           
           {/* Dashboard Routes */}

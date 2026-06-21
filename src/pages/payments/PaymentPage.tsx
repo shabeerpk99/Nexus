@@ -12,7 +12,7 @@ import { WithdrawForm } from '../../components/payment/WithdrawForm';
 import { TransferForm } from '../../components/payment/TransferForm';
 import { DealFundingCard } from '../../components/payment/DealFundingCard';
 import { DealFundingModal } from '../../components/payment/DealFundingModal';
-import { findWalletByUserId, updateWalletBalance } from '../../data/wallets';
+import { findWalletByUserId } from '../../data/wallets';
 import { getRecentTransactions, addTransaction } from '../../data/transactions';
 import { getOpenDeals, updateDealFunding } from '../../data/deals';
 import { users } from '../../data/users';

@@ -98,7 +98,7 @@ export const MeetingRequestForm: React.FC<MeetingRequestFormProps> = ({
       } else {
         setError('Failed to send meeting request');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred while sending the request');
     } finally {
       setIsLoading(false);

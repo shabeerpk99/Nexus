@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TrendingUp, CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader } from '../ui/Card';
+import { Card, CardBody } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { Deal } from '../../types';
