@@ -70,7 +70,7 @@ The app includes authentication, role-based dashboard routing, chat, payments, d
 
 - This project uses Vite; Vercel will run `npm run build` by default. A `prebuild` script now auto-runs `npm run lint:fix` before `build` to reduce lint issues.
 - Environment variables and secrets: configure via Vercel Dashboard (do NOT commit secrets to Git).
-- Demo OTP behavior: In development the OTP is deterministic (`123456`) and logged to the browser console. In production the app generates random OTPs and does not log them.
+- Demo OTP behavior: Known demo accounts (`sarah@techwave.io` and `michael@vcinnovate.com`) always use the OTP `123456`, even on Vercel. Other accounts receive a random code and the app does not log OTP values in production.
 
 ### Security checklist (before deploying to production)
 

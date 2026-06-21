@@ -10,7 +10,6 @@ import { ConfirmedMeetingsWidget } from '../../components/calendar/ConfirmedMeet
 import { WalletOverviewCard } from '../../components/payment/WalletOverviewCard';
 import { DashboardSummary } from '../../components/layout/DashboardSummary';
 import { useAuth } from '../../context/AuthContext';
-import { Entrepreneur } from '../../types';
 import { entrepreneurs } from '../../data/users';
 import { getRequestsFromInvestor } from '../../data/collaborationRequests';
 import { getConfirmedMeetingsForUser } from '../../data/confirmedMeetings';
@@ -36,7 +35,6 @@ export const InvestorDashboard: React.FC = () => {
   
   // Get collaboration requests sent by this investor
   const sentRequests = getRequestsFromInvestor(user.id);
-  const requestedEntrepreneurIds = sentRequests.map(req => req.entrepreneurId);
   
   // Get confirmed meetings
   const confirmedMeetings = getConfirmedMeetingsForUser(user.id);

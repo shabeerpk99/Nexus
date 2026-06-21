@@ -79,7 +79,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
       setAmount('');
       setBankName('');
       setAccountNumber('');
-    } catch (error) {
+    } catch {
       toast.error('Withdrawal failed. Please try again.');
     } finally {
       setIsLoading(false);

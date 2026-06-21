@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Clock, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Mail, Clock, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -93,7 +93,7 @@ export const TwoFactorAuthPage: React.FC = () => {
       } else {
         navigate('/dashboard', { replace: true });
       }
-    } catch (error) {
+    } catch {
       setIsSubmitting(false);
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
@@ -122,7 +122,7 @@ export const TwoFactorAuthPage: React.FC = () => {
       setOtp('');
       setVerificationError('');
       toast.success('Code resent to your email');
-    } catch (error) {
+    } catch {
       toast.error('Failed to resend code');
     } finally {
       setIsLoading(false);

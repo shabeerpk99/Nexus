@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Wallet, CreditCard, TrendingUp } from 'lucide-react';
-import { Button } from '../../components/ui/Button';
-import { Card, CardBody, CardHeader } from '../../components/ui/Card';
+import { TrendingUp } from 'lucide-react';
+import { Card, CardBody } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { useAuth } from '../../context/AuthContext';
 import { WalletBalanceCard } from '../../components/payment/WalletBalanceCard';
@@ -30,16 +29,14 @@ export const PaymentPage: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [walletBalance, setWalletBalance] = useState(0);
 
-  if (!user) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-600">Please log in to access the payment center.</p>
-      </div>
-    );
-  }
-
   // Load wallet and transactions on mount and when user changes
   useEffect(() => {
+    if (!user) {
+      setTransactions([]);
+      setWalletBalance(0);
+      return;
+    }
+
     const wallet = findWalletByUserId(user.id);
     if (wallet) {
       setWalletBalance(wallet.balance);
@@ -55,6 +52,14 @@ export const PaymentPage: React.FC = () => {
       setActiveTab(actionParam);
     }
   }, [searchParams]);
+
+  if (!user) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Please log in to access the payment center.</p>
+      </div>
+    );
+  }
 
   const handleDepositSuccess = (transaction: Transaction) => {
     addTransaction(transaction);

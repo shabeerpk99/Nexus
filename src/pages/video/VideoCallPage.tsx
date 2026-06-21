@@ -24,8 +24,21 @@ export const VideoCallPage: React.FC = () => {
   const callStartRef = useRef<number | null>(null);
 
   useEffect(() => {
+    const cleanupLocalVideo = localVideoRef.current;
+    const cleanupScreenStream = screenStreamRef.current;
+    const cleanupLocalStream = localStreamRef.current;
+
     return () => {
-      stopCall();
+      stopTimer();
+      stopTracks(cleanupScreenStream);
+      stopTracks(cleanupLocalStream);
+      if (cleanupLocalVideo) {
+        cleanupLocalVideo.srcObject = null;
+      }
+      setIsInCall(false);
+      setIsScreenSharing(false);
+      setCallDuration('00:00');
+      callStartRef.current = null;
     };
   }, []);
 

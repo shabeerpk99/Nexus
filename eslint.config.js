@@ -29,7 +29,7 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true, allowTaggedTemplates: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { 'args': 'none', 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
       'no-unused-vars': 'off',
       'no-unused-expressions': 'off',
     },

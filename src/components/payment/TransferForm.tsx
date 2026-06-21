@@ -12,7 +12,7 @@ interface TransferFormProps {
   walletId: string;
   currentBalance: number;
   allUsers: User[];
-  onTransferSuccess?: (transaction: Transaction) => void;
+  onTransferSuccess?: (_transaction: Transaction) => void;
 }
 
 export const TransferForm: React.FC<TransferFormProps> = ({
@@ -82,7 +82,7 @@ export const TransferForm: React.FC<TransferFormProps> = ({
       setAmount('');
       setSelectedUserId('');
       setDescription('');
-    } catch (error) {
+    } catch {
       toast.error('Transfer failed. Please try again.');
     } finally {
       setIsLoading(false);

@@ -20,7 +20,6 @@ export const EntrepreneurDashboard: React.FC = () => {
   const { user } = useAuth();
   const [collaborationRequests, setCollaborationRequests] = useState<CollaborationRequest[]>([]);
   const [confirmedMeetings, setConfirmedMeetings] = useState<any[]>([]);
-  const [recommendedInvestors, setRecommendedInvestors] = useState(investors.slice(0, 3));
   const [walletBalance, setWalletBalance] = useState(0);
   
   useEffect(() => {
@@ -52,6 +51,7 @@ export const EntrepreneurDashboard: React.FC = () => {
   if (!user) return null;
   
   const pendingRequests = collaborationRequests.filter(req => req.status === 'pending');
+  const recommendedInvestors = investors.slice(0, 3);
   
   return (
     <div className="space-y-6 animate-fade-in">

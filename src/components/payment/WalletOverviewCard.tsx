@@ -7,14 +7,12 @@ import { Button } from '../ui/Button';
 interface WalletOverviewCardProps {
   balance: number;
   currency: string;
-  userName: string;
   userRole: string;
 }
 
 export const WalletOverviewCard: React.FC<WalletOverviewCardProps> = ({
   balance,
   currency,
-  userName,
   userRole,
 }) => {
   const quickActions = [

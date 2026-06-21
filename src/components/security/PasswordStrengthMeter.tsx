@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Check, X } from 'lucide-react';
-import { PasswordValidation, PasswordStrength } from '../../types';
+import { PasswordStrength } from '../../types';
 import { validatePassword } from '../../utils/password';
 
 interface PasswordStrengthMeterProps {

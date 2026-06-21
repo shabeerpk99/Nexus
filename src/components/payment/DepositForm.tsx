@@ -3,7 +3,6 @@ import { CreditCard } from 'lucide-react';
 import { Card, CardBody, CardHeader } from '../ui/Card';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
 import toast from 'react-hot-toast';
 import { Transaction } from '../../types';
 
@@ -67,7 +66,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({
       toast.success(`Deposit of $${parseFloat(amount).toFixed(2)} completed successfully!`);
       setAmount('');
       setDescription('');
-    } catch (error) {
+    } catch {
       toast.error('Deposit failed. Please try again.');
     } finally {
       setIsLoading(false);

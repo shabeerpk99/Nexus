@@ -77,7 +77,7 @@ export const DealFundingModal: React.FC<DealFundingModalProps> = ({
       toast.success(`Successfully invested $${amount.toFixed(2)} in ${deal.title}!`);
       setInvestmentAmount('');
       onClose();
-    } catch (error) {
+    } catch {
       toast.error('Investment failed. Please try again.');
     } finally {
       setIsLoading(false);

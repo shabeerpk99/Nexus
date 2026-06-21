@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
-import { Upload, FileText, Eye, CheckCircle2, Pencil, Share2, Download } from 'lucide-react';
+import { Upload, FileText, Eye, Download } from 'lucide-react';
 import { Document } from '../../types';
 import { SignaturePad } from '../../components/documents/SignaturePad';
 

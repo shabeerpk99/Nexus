@@ -187,8 +187,13 @@ export const LoginPage: React.FC = () => {
                 Investor Demo
               </Button>
             </div>
+            <div className="mt-3 rounded-xl border border-primary-200 bg-primary-50 p-4 text-sm text-primary-900">
+              <p className="font-medium">Demo credentials</p>
+              <p>Use <span className="font-semibold">sarah@techwave.io</span> or <span className="font-semibold">michael@vcinnovate.com</span> with password <span className="font-semibold">password123</span>.</p>
+              <p>The 2FA code for both demo accounts is <span className="font-semibold">123456</span>.</p>
+            </div>
           </div>
-          
+
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -198,7 +203,7 @@ export const LoginPage: React.FC = () => {
                 <span className="px-2 bg-white text-gray-500">Or</span>
               </div>
             </div>
-            
+
             <div className="mt-2 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}

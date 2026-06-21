@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { User, UserRole, AuthContextType, TwoFactorSession } from '../types';
 import { users } from '../data/users';
@@ -193,8 +194,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // If this is a known demo account (or in dev), make OTP deterministic for testing
       const demoEmails = ['sarah@techwave.io', 'michael@vcinnovate.com'];
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const isDev = (import.meta as any)?.env?.DEV;
+      const isDev = Boolean(import.meta.env.DEV);
       const targetUser = users.find(u => u.id === userId);
       if (isDev || (targetUser && demoEmails.includes(targetUser.email))) {
         otp = '123456';
@@ -220,11 +220,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // Log OTP in development for easier demo testing
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const isDev = (import.meta as any)?.env?.DEV;
+        const isDev = Boolean(import.meta.env.DEV);
         if (isDev) {
           // avoid leaking in production
-          // eslint-disable-next-line no-console
           console.info(`Dev 2FA OTP for user ${userId}: ${otp}`);
         }
       } catch {
