@@ -66,6 +66,45 @@ The app includes authentication, role-based dashboard routing, chat, payments, d
 - Added `Forgot Password` and `Reset Password` routes
 - Updated ESLint config for modern TypeScript and React validation
 
+### Vercel deployment notes
+
+- This project uses Vite; Vercel will run `npm run build` by default. A `prebuild` script now auto-runs `npm run lint:fix` before `build` to reduce lint issues.
+- Environment variables and secrets: configure via Vercel Dashboard (do NOT commit secrets to Git).
+- Demo OTP behavior: In development the OTP is deterministic (`123456`) and logged to the browser console. In production the app generates random OTPs and does not log them.
+
+### Security checklist (before deploying to production)
+
+- Remove any debug console logging and demo helpers.
+- Store secrets and API keys in Vercel Environment Variables.
+- Enforce HTTPS and HSTS (Vercel provides HTTPS by default; `vercel.json` includes HSTS header).
+- Configure Content Security Policy (CSP) headers if integrating third-party resources.
+- Use a secure backend for authentication; replace mock auth in `src/context/AuthContext.tsx`.
+- Run `npm run lint` and fix all remaining issues, and add tests where applicable.
+
+### Deploy to Vercel
+
+1. Push your repository to GitHub/GitLab.
+2. Create a new project in Vercel and point it to the repo.
+3. Set the following (example) environment variables in Vercel:
+   - `API_BASE_URL` — backend base URL
+   - `VITE_SENTRY_DSN` — optional error tracking DSN
+4. Vercel build & output settings: framework detected as Vite; build command: `npm run build`; output directory: `dist`.
+5. Click Deploy.
+
+### Quick commands
+
+- Install deps: `npm install`
+- Dev: `npm run dev`
+- Lint: `npm run lint`
+- Auto-fix lint issues: `npm run lint:fix`
+- Build (runs `prebuild`): `npm run build`
+
+## Recommended post-deploy checks
+
+- Verify HTTPS and headers via curl or security scanners.
+- Confirm no OTP or sensitive info appears in client console.
+- Run a smoke test for main user flows: login, 2FA, dashboard, create request, payments flow.
+
 ## Recommended next steps
 
 - Add backend integration for authentication, payments, and user data

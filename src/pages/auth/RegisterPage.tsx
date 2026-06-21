@@ -4,7 +4,8 @@ import { User, Mail, Lock, CircleDollarSign, Building2, AlertCircle } from 'luci
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { PasswordStrengthMeter, validatePassword } from '../../components/security/PasswordStrengthMeter';
+import { PasswordStrengthMeter } from '../../components/security/PasswordStrengthMeter';
+import { validatePassword } from '../../utils/password';
 import { UserRole } from '../../types';
 
 export const RegisterPage: React.FC = () => {

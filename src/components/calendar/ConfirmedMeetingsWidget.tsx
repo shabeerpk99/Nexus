@@ -11,7 +11,7 @@ import { findUserById } from '../../data/users';
 interface ConfirmedMeetingsWidgetProps {
   meetings: ConfirmedMeeting[];
   currentUserId: string;
-  onMeetingClick?: (meeting: ConfirmedMeeting) => void;
+  onMeetingClick?: (_meeting: ConfirmedMeeting) => void;
   showViewAll?: boolean;
   limit?: number;
 }

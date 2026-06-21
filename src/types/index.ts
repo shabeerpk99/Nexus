@@ -191,16 +191,16 @@ export interface TwoFactorSession {
 
 export interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role: UserRole) => Promise<void>;
-  register: (name: string, email: string, password: string, role: UserRole) => Promise<void>;
+  login: (_email: string, _password: string, _role: UserRole) => Promise<void>;
+  register: (_name: string, _email: string, _password: string, _role: UserRole) => Promise<void>;
   logout: () => void;
-  forgotPassword: (email: string) => Promise<void>;
-  resetPassword: (token: string, newPassword: string) => Promise<void>;
-  updateProfile: (userId: string, updates: Partial<User>) => Promise<void>;
+  forgotPassword: (_email: string) => Promise<void>;
+  resetPassword: (_token: string, _newPassword: string) => Promise<void>;
+  updateProfile: (_userId: string, _updates: Partial<User>) => Promise<void>;
   isAuthenticated: boolean;
   isLoading: boolean;
   twoFactorSession: TwoFactorSession | null;
-  initiateTwoFactor: (userId: string) => Promise<void>;
-  verifyTwoFactor: (otp: string) => Promise<void>;
+  initiateTwoFactor: (_userId: string) => Promise<void>;
+  verifyTwoFactor: (_otp: string) => Promise<void>;
   resendOTP: () => Promise<void>;
 }

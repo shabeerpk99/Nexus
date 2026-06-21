@@ -6,8 +6,8 @@ import { Button } from '../ui/Button';
 
 interface CalendarProps {
   meetings: ConfirmedMeeting[];
-  onDateSelect?: (date: string) => void;
-  onEventClick?: (meeting: ConfirmedMeeting) => void;
+  onDateSelect?: (_date: string) => void;
+  onEventClick?: (_meeting: ConfirmedMeeting) => void;
 }
 
 export const Calendar: React.FC<CalendarProps> = ({ meetings, onDateSelect, onEventClick }) => {

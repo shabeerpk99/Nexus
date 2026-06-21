@@ -17,9 +17,9 @@ import {
 
 interface AvailabilitySlotFormProps {
   userId: string;
-  onSlotAdded?: (slot: AvailabilitySlot) => void;
-  onSlotUpdated?: (slot: AvailabilitySlot) => void;
-  onSlotDeleted?: (slotId: string) => void;
+  onSlotAdded?: (_slot: AvailabilitySlot) => void;
+  onSlotUpdated?: (_slot: AvailabilitySlot) => void;
+  onSlotDeleted?: (_slotId: string) => void;
 }
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

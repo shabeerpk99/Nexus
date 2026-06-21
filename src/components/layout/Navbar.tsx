@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, Share2, Settings, Wallet } from 'lucide-react';
+import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, Share2, Wallet, Settings } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';

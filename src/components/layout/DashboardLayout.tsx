@@ -6,7 +6,7 @@ import { Sidebar } from './Sidebar';
 import { TourGuide } from '../tour/TourGuide';
 
 export const DashboardLayout: React.FC = () => {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   
   if (isLoading) {
     return (

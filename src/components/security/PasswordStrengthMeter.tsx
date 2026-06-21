@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Check, X } from 'lucide-react';
 import { PasswordValidation, PasswordStrength } from '../../types';
+import { validatePassword } from '../../utils/password';
 
 interface PasswordStrengthMeterProps {
   password: string;
@@ -8,32 +9,8 @@ interface PasswordStrengthMeterProps {
   className?: string;
 }
 
-export const validatePassword = (password: string): PasswordValidation => {
-  const checks = {
-    minLength: password.length >= 8,
-    hasUppercase: /[A-Z]/.test(password),
-    hasLowercase: /[a-z]/.test(password),
-    hasNumber: /\d/.test(password),
-    hasSpecialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
-  };
-
-  const passedChecks = Object.values(checks).filter(Boolean).length;
-  let strength: PasswordStrength = 'weak';
-
-  if (passedChecks >= 5) {
-    strength = 'strong';
-  } else if (passedChecks >= 3) {
-    strength = 'medium';
-  }
-
-  const isValid = checks.minLength && checks.hasUppercase && checks.hasLowercase && checks.hasNumber;
-
-  return {
-    isValid,
-    strength,
-    checks,
-  };
-};
+// `validatePassword` moved to `src/utils/password.ts` to avoid exporting
+// non-component values from this module (which breaks fast-refresh).
 
 export const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
   password,
