@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, Share2, FileText } from 'lucide-react';
+import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, Share2, FileText, Settings, ChevronDown, Wallet } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
@@ -10,14 +10,32 @@ export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleProfileMenu = () => {
+    setIsProfileOpen((current) => !current);
   };
   
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   
   // User dashboard route based on role
   const dashboardRoute = user?.role === 'entrepreneur' 
@@ -48,11 +66,6 @@ export const Navbar: React.FC = () => {
       tourId: 'messages-link',
     },
     {
-      icon: <Bell size={18} />,
-      text: 'Notifications',
-      path: user ? '/notifications' : '/login',
-    },
-    {
       icon: <Video size={18} />,
       text: 'Video Call',
       path: user ? '/video' : '/login',
@@ -63,22 +76,22 @@ export const Navbar: React.FC = () => {
       path: user ? '/documents/chamber' : '/login',
     },
     {
-      icon: user?.role === 'entrepreneur' ? <FileText size={18} /> : <FileText size={18} />,
-      text: user?.role === 'entrepreneur' ? 'Documents' : 'Deals',
-      path: user ? (user.role === 'entrepreneur' ? '/documents' : '/deals') : '/login',
-      tourId: 'documents-link',
+      icon: <Wallet size={18} />,
+      text: 'Payments',
+      path: user ? '/payments' : '/login',
+      tourId: 'payments-link',
     },
     {
-      icon: <User size={18} />,
-      text: 'Profile',
-      path: profileRoute,
+      icon: <Bell size={18} />,
+      text: 'Notifications',
+      path: user ? '/notifications' : '/login',
     }
   ];
   
   return (
     <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
           {/* Logo and brand */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" data-tour="brand" className="flex items-center space-x-2">
@@ -93,41 +106,69 @@ export const Navbar: React.FC = () => {
           </div>
           
           {/* Desktop navigation */}
-          <div className="hidden md:flex md:items-center md:ml-6">
+          <div className="hidden md:flex md:items-center md:ml-6 md:flex-1 md:min-w-0 md:justify-between">
             {user ? (
-              <div className="flex items-center space-x-4">
-                {navLinks.map((link, index) => (
-                  <Link
-                    key={index}
-                    to={link.path}
-                    data-tour={link.tourId}
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+              <>
+                <div className="flex flex-1 min-w-0 items-center gap-3 overflow-hidden whitespace-nowrap pr-2">
+                  {navLinks.map((link, index) => (
+                    <Link
+                      key={index}
+                      to={link.path}
+                      data-tour={link.tourId}
+                      className="inline-flex flex-shrink-0 items-center gap-2 min-w-max rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors duration-200 whitespace-nowrap"
+                    >
+                      <span className="shrink-0">{link.icon}</span>
+                      <span className="text-sm font-medium">{link.text}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                <div ref={profileRef} className="relative flex items-center flex-shrink-0 ml-auto">
+                  <button
+                    type="button"
+                    onClick={toggleProfileMenu}
+                    className="p-1.5 rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
-                    <span className="mr-2">{link.icon}</span>
-                    {link.text}
-                  </Link>
-                ))}
-                
-                <Button 
-                  variant="ghost"
-                  onClick={handleLogout}
-                  leftIcon={<LogOut size={18} />}
-                >
-                  Logout
-                </Button>
-                
-                <Link to={profileRoute} className="flex items-center space-x-2 ml-2">
-                  <Avatar
-                    src={user.avatarUrl}
-                    alt={user.name}
-                    size="sm"
-                    status={user.isOnline ? 'online' : 'offline'}
-                  />
-                  <span className="text-sm font-medium text-gray-700">{user.name}</span>
-                </Link>
-              </div>
+                    <Avatar
+                      src={user.avatarUrl}
+                      alt={user.name}
+                      size="sm"
+                      status={user.isOnline ? 'online' : 'offline'}
+                    />
+                  </button>
+
+                  {isProfileOpen && (
+                    <div className="absolute right-0 top-full z-20 mt-2 w-48 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                      <Link
+                        to={profileRoute}
+                        className="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        <User size={16} />
+                        View profile
+                      </Link>
+                      <Link
+                        to="/settings"
+                        className="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        <Settings size={16} />
+                        Settings
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        <LogOut size={16} />
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-3">
                 <Link to="/login">
                   <Button variant="outline">Log in</Button>
                 </Link>

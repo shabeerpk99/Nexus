@@ -21,15 +21,15 @@ export const DashboardLayout: React.FC = () => {
   }
   
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col overflow-x-hidden">
       <Navbar />
       <TourGuide />
       
       <div className="flex-1 flex overflow-hidden">
         <Sidebar />
         
-        <main className="flex-1 overflow-y-auto p-6" data-tour="content-area">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 min-w-0 overflow-y-auto p-6" data-tour="content-area">
+          <div className="max-w-7xl mx-auto w-full">
             <Outlet />
           </div>
         </main>
