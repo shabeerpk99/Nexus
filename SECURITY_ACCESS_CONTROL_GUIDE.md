@@ -69,6 +69,16 @@ interface PasswordValidation {
 
 **Purpose**: Add an extra layer of security by requiring verification via one-time password (OTP).
 
+### Demo Account 2FA Notes
+- Demo accounts (`Entrepreneur Demo` and `Investor Demo`) require a one-time verification code after submitting login credentials.
+- The code is generated automatically and printed to the browser developer tools console for testing.
+- Look for the console message:
+  `🔐 Two-Factor Authentication Code: XXXXXX`
+- Enter that 6-digit code into the OTP input fields on the Verification page.
+- The code is valid for 10 minutes.
+- If the resend button is disabled, wait for the countdown to expire before requesting a new code.
+- This file is the primary security guide for access control; `SECURITY_ACCESS_CONTROL_SUMMARY.md` has been removed to avoid duplicate documentation.
+
 #### 2FA Components
 
 **A. OTPInput Component**
